@@ -36,7 +36,7 @@ tests: thrift
 	sphinx-build -M doctest docs/ build/
 
 lint:
-	flake8 baseplate/
+	/usr/local/bin/flake8 --exit-zero baseplate/
 	pylint --errors-only baseplate/
 
 checks: tests lint spelling

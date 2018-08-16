@@ -1,6 +1,7 @@
 branches:
     only:
         - master
+        - add_testspace_support
 
 sudo: required
 dist: trusty
@@ -19,6 +20,9 @@ virtualenv:
     system_site_packages: true
 
 before_install:
+    - mkdir -p $HOME/bin
+    - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux.tgz | tar -zxvf- -C $HOME/bin
+    - testspace config url reddit.testspace.com
     - sudo add-apt-repository -y ppa:reddit/ppa
     - echo "deb http://debian.datastax.com/community stable main" | sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list
     - sudo apt-key add puppet/modules/cassandra/files/repo_key
@@ -41,6 +45,7 @@ before_install:
             python3-kazoo \
             python3-kombu \
             python3-nose \
+            python3-pip\
             python3-posix-ipc \
             python3-pymemcache \
             python3-redis \
@@ -54,7 +59,6 @@ before_install:
             python-cryptography \
             python-enum34 \
             python-fbthrift \
-            python-flake8 \
             python-gevent \
             python-hvac \
             python-jwt \
@@ -62,6 +66,7 @@ before_install:
             python-kombu \
             python-mock \
             python-nose \
+            python-pip \
             python-posix-ipc \
             python-pymemcache \
             python-pyramid \
@@ -74,6 +79,8 @@ before_install:
             python-webtest \
             unzip \
             zookeeperd
+    - sudo easy_install pip
+    - sudo pip install -r tests/test-requirements.txt
     - sudo service cassandra start
     - wget https://releases.hashicorp.com/vault/0.7.3/vault_0.7.3_linux_amd64.zip && unzip vault_0.7.3_linux_amd64.zip && ./vault server -dev -dev-root-token-id=b4c6f298-3f80-11e7-8b88-5254001e7ad3 &
     - sleep 10  # cassandra takes a while to start up
@@ -84,3 +91,6 @@ script:
     - sphinx-build -M doctest docs/ build/
     - sphinx-build -M spelling docs/ build/
     - make lint
+
+after_script:
+    - testspace static_analysis.log{lint} [py-${TRAVIS_PYTHON_VERSION}]nosetests.xml{.} build/coverage/coverage.xml
