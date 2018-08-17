@@ -3,6 +3,18 @@ baseplate
 
 |Build Status|
 
+.. image:: https://reddit.testspace.com/spaces/122633/badge?token=d8fc2a779b88a27f39e1fc5044635a0e6907f100
+    :alt: Space Health
+    :target: https://reddit.testspace.com/spaces/122633?utm_campaign=badge&utm_medium=referral&utm_source=test
+
+.. image:: https://reddit.testspace.com/spaces/122633/metrics/78043/badge?token=c8031e091264b293c8cc63b3e87a0fb22c1dbd0c
+    :alt: Space Metric
+    :target: https://reddit.testspace.com/spaces/122633/schema/Code%20Coverage?utm_campaign=badge&utm_medium=referral&utm_source=coverage%28%3F%3A%29
+
+.. image:: https://reddit.testspace.com/spaces/122633/metrics/78044/badge?token=d75e5ccbc87ce4c3bdc5b1a057a61fcf8e229357
+    :alt: Space Metric
+    :target: https://reddit.testspace.com/spaces/122633/schema/Code%20Coverage?utm_campaign=badge&utm_medium=referral&utm_source=coverage
+
 Baseplate is a library to build services on. Its goal is to provide all
 the common things a service needs with as few surprises as possible,
 including:
